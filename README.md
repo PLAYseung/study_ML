@@ -15,7 +15,11 @@
 - 회귀 알고리즘
     - k-최근접 이웃 알고리즘
     - 선형 회귀
-    
+
+## day 3
+- 특성공학과 규제
+    - 
+
 ## personal practice ML
 - milk_quality
     - [milk_quality in kaggle](https://www.kaggle.com/code/kishankumar2110/milk-quality-classification-with-99-accuracy?scriptVersionId=103489041)
