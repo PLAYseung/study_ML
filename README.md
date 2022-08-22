@@ -16,6 +16,6 @@
     - k-최근접 이웃 알고리즘
     - 선형 회귀
     
-## personal practice
+## personal practice 
 - milk_quality
     - [milk_quality in kaggle](https://www.kaggle.com/code/kishankumar2110/milk-quality-classification-with-99-accuracy?scriptVersionId=103489041)
