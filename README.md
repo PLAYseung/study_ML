@@ -18,7 +18,13 @@
 
 ## day 3
 - 특성공학과 규제
-    - 
+    - lasso
+    - ridge
+
+## 신경망
+- 인공 신경망
+- 합성곱  
+
 
 ## personal practice ML
 - milk_quality
