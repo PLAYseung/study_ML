@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>언어감지 프로그램</title>
+</head>
+
+<body>
+    <div>
+        <fieldset>
+            <!-- <form> -->
+                <textarea id="userInput" cols="60" rows="20">민영화 20주년 맞은 KT(030200)가 기념식을 열고 향후 20년간 ‘글로벌 테크 컴퍼니’로 도약하겠다는 포부를 밝혔다. 30일 KT는 소피텔 엠버서더 서울 호텔에서 민영화 20주년 기념식을 열었다. K …</textarea>
+                <br>
+                <button id="detectBtn">언어감지</button>
+                <br>
+                <p>결과 : <span id="result"></span></p>
+            <!-- </form> -->
+        </fieldset>
+    </div>
+    <script>
+        // $('#detectBtn').on('click', function () { 
+        $('#detectBtn').on('click', () => { //익명 함수 + 최신 함수 표현식
+            // 1. 사용자가 입력한 텍스트를 추출 -> 특정후 추출
+            let src = $('#userInput').val()
+            console.log( src )
+            // 2. 해당 텍스트를 서버측으로 전송 ( 서버주소, 전송방식(post;대량 전송), 응답형태(json) )
+            //    비동기 백그라운드 통신 방식으로 전송 ( ajax )
+            $.post({
+                url:'/predict',         // 서버측 주소
+                data:'key='+src,        // 전달할 데이터 키=값&키=값
+                dataType:'json',        // 응답 데이터는 json으로 전달해라 (포멧지정)
+                success:( res ) => {    // 통신이 성공하면 res에 담아서 콜백함수를 호출한다
+                    // 3. 결과를 화면에 표시하시오 -> 이글은 한국어 입니다.
+                    console.log( '성공', res )
+                    $('#result').html(`이글은 ${ res.value } 입니다.`)
+                },
+                error:(err)=>{          // 통신오류
+                    console.log( '오류', err )
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery 설치 완료 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>언어감지 프로그램</title>
+</head>
+<body>
+    <!-- js 프레임워크(jQuery)을 이용하여 입력된 텍스트를 서버로 전송하는 기능 구현 -->
+    <!-- jQuery 선택 이유, 간결하게 html(DOM) 조작, 서버통신등 많은 기능 제공, 생산성향상 -->
+    <!-- jQuery.com -> download -> CDN -> google -> 3.x snippet -->
+    <div>
+        <fieldset>
+            <!-- <form> -->
+                <textarea cols="60" rows="20">1</textarea>
+                <br>
+                <button id="detectBtn">언어감지</button>
+                <br>
+                <p>결과 : <span id="result"></span></p>
+            <!-- </form> -->
+        </fieldset>
+    </div>
+    <!-- body태그가 닫히기 직전 스크립트 작성 -->
+    <script>
+        // 화면에 보이는 모든 코드가 랜더링이 끝난 지점이 여기다 -> body가 닫히기 직전
+        // 1. 버튼을 누른다 -> 그 인벤트를 잡는다 -> 버튼에 클릭 이벤트를 등록( on() )해라
+        // 1-1. 버튼을 특정하라(찾아라) -> #detectBtn, jquery 에서는 문자열을 찾는 $('css selector') 표현
+        // console.log($('#detectBtn'))
+
+        // function callback() {
+        //     console.log('호출')
+        // }
+
+        // 버튼을 클릭하면 이벤트를 잡아서 핸들러(등록된 함수를 호출)호출, 호출이라는 문자열이 출력된다.
+        // $('#detectBtn').on('click', function () { 
+            $('#detectBtn').on('click', () => { //익명 함수 + 최신 함수 표현식
+            // 1. 사용자가 입력한 텍스트를 추출 -> 특정후 추출
+            let src = $('#userInput').val()
+            console.log( src )
+            // 2. 해당 텍스트를 서버측으로 전송 ( 서버주소, 전송방식(post;대량 전송), 응답형태(json) )
+            //    비동기 백그라운드 통신 방식으로 전송 ( ajax )
+            $.post({
+                url:'/predict',         // 서버측 주소
+                data:'key='+src,        // 전달할 데이터 키=값&키=값
+                dataType:'json',        // 응답 데이터는 json으로 전달해라 (포멧지정)
+                success:( res ) => {    // 통신이 성공하면 res에 담아서 콜백함수를 호출한다
+                    // 3. 결과를 화면에 표시하시오 -> 이글은 한국어 입니다.
+                    console.log( res )
+                    $('#result').html(`이글은 ${ res.value } 입니다.`)
+                },
+                error:(err)=>{          // 통신오류
+                    console.log( err )
+                }
+            })
+        })
+    </script>
+</body>
+</html>
